@@ -51,23 +51,24 @@ CabreraSanz_Dafne_p3.1/
 ├── main.py                      # Punto de entrada de la aplicación
 ├── requirements.txt             # Dependencias del proyecto
 ├── README.md                    # Este archivo
-├── test_api.rest               # Pruebas de endpoints (REST Client)
+├── test_api.rest                # Pruebas de endpoints (REST Client)
+├── .gitignore                   # Archivos a ignorar en git
 ├── database/
 │   ├── __init__.py
-│   ├── database.py             # Configuración de SQLAlchemy y SQLite
-│   └── database.db             # Base de datos persistente (generado automáticamente)
+│   ├── database.py              # Configuración de SQLAlchemy y SQLite
+│   └── database.db              # Base de datos persistente (generado automáticamente)
 ├── models/
 │   ├── __init__.py
-│   ├── cantante.py             # Modelo ORM de Cantante
-│   └── album.py                # Modelo ORM de Álbum
+│   ├── cantante.py              # Modelo ORM de Cantante
+│   └── album.py                 # Modelo ORM de Álbum
 ├── schemas/
 │   ├── __init__.py
-│   ├── cantante.py             # Esquemas Pydantic para Cantante
-│   └── album.py                # Esquemas Pydantic para Álbum
+│   ├── cantante.py              # Esquemas Pydantic para Cantante
+│   └── album.py                 # Esquemas Pydantic para Álbum
 └── routes/
     ├── __init__.py
-    ├── cantantes.py            # Endpoints CRUD de Cantantes
-    └── albumes.py              # Endpoints CRUD de Álbumes
+    ├── cantantes.py             # Endpoints CRUD de Cantantes
+    └── albumes.py               # Endpoints CRUD de Álbumes
 ```
 
 ---
@@ -114,15 +115,14 @@ Para cada entidad se han creado **modelos Pydantic separados** de los modelos OR
 **Cantante:**
 - `CantanteBase`: Modelo base con campos comunes
 - `CantanteCreate`: Modelo para crear (hereda de Base)
-- `CantanteResponse`: Modelo para respuestas (incluye ID y álbumes asociados)
+- `CantanteResponse`: Modelo para respuestas (incluye ID)
 
 **Álbum:**
 - `AlbumBase`: Modelo base con campos comunes
-- `AlbumCreate`: Modelo para crear
+- `AlbumCreate`: Modelo para crear (hereda de Base)
 - `AlbumResponse`: Modelo para respuestas (incluye ID y fecha)
-- `AlbumSimple`: Modelo simplificado para evitar referencias circulares
 
-Configuración: `from_attributes = True` para compatibilidad con SQLAlchemy.
+Configuración: `orm_mode = True` para compatibilidad con SQLAlchemy.
 
 ### 5. Gestión de errores
 
@@ -190,10 +190,10 @@ El archivo `test_api.rest` contiene peticiones de prueba para todos los endpoint
 
 ## ⚙️ Tecnologías Utilizadas
 
-- **FastAPI 0.123.3**: Framework web moderno
-- **SQLAlchemy 2.0.45**: ORM para Python (compatible con Python 3.13)
-- **Pydantic 2.12.5**: Validación de datos
-- **Uvicorn 0.38.0**: Servidor ASGI
+- **FastAPI**: Framework web moderno y rápido
+- **SQLAlchemy**: ORM para Python
+- **Pydantic**: Validación de datos
+- **Uvicorn**: Servidor ASGI
 - **SQLite**: Base de datos relacional
 
 ---
@@ -209,7 +209,7 @@ El archivo `test_api.rest` contiene peticiones de prueba para todos los endpoint
 - Validación de tipos de datos con Pydantic
 - Comprobación de campos obligatorios
 - Verificación de duplicados (nombres únicos)
-- Validación de referencias (Foreign Keys)
+- Modo ORM habilitado con `orm_mode = True`
 
 ### Arquitectura Modular
 - Separación clara: database / models / schemas / routes
